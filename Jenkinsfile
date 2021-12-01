@@ -110,5 +110,26 @@ pipeline {
                 }
             }
         }
+        
+        stage('SonarQube Checkout') {
+            steps {
+                git branch:'master', url: 'https://github.com/OWASP/Vulnerable-Web-Application.git'
+            }
+        }
+        stage('SonarQube Analysis') {
+            steps {
+                script {
+                    def scannerHome = tool 'SonarQube';
+                    withSonarQubeEnv('SonarQube') {
+                        sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=OWASP -Dsonar.sources=. -Dsonar.host.url=http://192.168.132:9000 -Dsonar.login=bda8ff3be128888a5098f7c3cdfcb63291d2dbf0"
+                    }
+                }
+            }
+            post {
+                always {
+                    recordIssues enabledForFailure: true, tool: sonarQube()
+                }
+            }
+        }
     }
 }
