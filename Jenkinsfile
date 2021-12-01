@@ -5,7 +5,9 @@ pipeline {
     }
     stages {
         stage('Build') {
-            echo 'Build Phase'
+            steps {
+                echo 'Build Phase'
+            }
         }
         
         stage('Dependency Check'){
