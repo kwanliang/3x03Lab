@@ -72,14 +72,15 @@ pipeline {
 							junit 'target/surefire-reports/*.xml'
 						}
 					}
-				}
-                
-                post {
-                    success {
-                        sh 'chmod +x ./jenkins/scripts/kill.sh'
-                        sh './jenkins/scripts/kill.sh'
+                    
+                    agent any
+                    post {
+                        success {
+                            sh 'chmod +x ./jenkins/scripts/kill.sh'
+                            sh './jenkins/scripts/kill.sh'
+                        }
                     }
-                }
+				}
 			}
 		}
     }
