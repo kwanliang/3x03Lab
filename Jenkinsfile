@@ -70,6 +70,8 @@ pipeline {
 					post {
 						success {
 							junit 'target/surefire-reports/*.xml'
+                            sh 'chmod +x ./jenkins/scripts/kill.sh'
+                            sh './jenkins/scripts/kill.sh'
 						}
 					}
 				}
