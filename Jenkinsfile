@@ -54,6 +54,9 @@ pipeline {
 					steps {
                         sh 'chmod +x ./jenkins/scripts/deploy.sh'
 						sh './jenkins/scripts/deploy.sh'
+                        timeout(time: 1, unit: 'MINUTES') {
+                            input 'Is the test environment ready?'
+                        }	
 					}
 				}
 				stage('Headless Browser Test') {
@@ -68,7 +71,7 @@ pipeline {
 						sh 'mvn test'
 					}
 					post {
-						always {
+						success {
 							junit 'target/surefire-reports/*.xml'
                             sh 'chmod +x ./jenkins/scripts/kill.sh'
                             sh './jenkins/scripts/kill.sh'
