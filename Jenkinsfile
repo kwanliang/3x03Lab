@@ -16,12 +16,11 @@ pipeline {
         stage('Dependency Check') {
             steps {
                 echo 'Initializing OWASP Dependency Check'
-                dependencyCheck additionalArguments: '--format HTML --format XML --out /var/jenkins_home/logs/dependency_check/${BUILD_NUMBER}', odcInstallation: 'Dependency-Check'
+                dependencyCheck additionalArguments: '--format HTML --format XML', odcInstallation: 'Dependency-Check'
             }
             
             post {
                 always {
-                    sh 'cp /var/jenkins_home/logs/dependency_check/${BUILD_NUMBER}/dependency-check-report.xml ${WORKSPACE}'
                     dependencyCheckPublisher pattern: 'dependency-check-report.xml'
                 }
             }
