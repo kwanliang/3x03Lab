@@ -71,12 +71,10 @@ pipeline {
             }
             
             post {
-                always 
-                    {
-                        junit 'target/surefire-reports/*.xml'
-                        sh 'chmod +x ./jenkins/scripts/kill.sh'
-                        sh './jenkins/scripts/kill.sh'
-                    }
+                always {
+                    junit 'target/surefire-reports/*.xml'
+                    sh 'chmod +x ./jenkins/scripts/kill.sh'
+                    sh './jenkins/scripts/kill.sh'
                 }
             }
         }
