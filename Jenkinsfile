@@ -9,7 +9,8 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Building phase'       
+                echo 'Building phase'  
+                sh 'pwd'
             }
         }
 
@@ -34,9 +35,10 @@ pipeline {
             }
                     
             steps {
+                sh 'pwd'
                 echo 'Testing Phase'
                 sh 'composer install'
-
+                sh 'pwd'
                 sh './vendor/bin/phpunit --log-junit /var/jenkins_home/logs/tests/unit/${BUILD_NUMBER}_unitreport.xml -c tests/phpunit.xml tests'
             }
             
