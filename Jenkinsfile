@@ -36,12 +36,12 @@ pipeline {
             steps {
                 sh 'composer install'
                 echo 'Testing Phase'
-                sh './vendor/bin/phpunit --log-junit logs/unitreport.xml -c tests/phpunit.xml tests'
+                sh './vendor/bin/phpunit --log-junit /var/lib/docker/volumes/jenkins-data/_data/logs/unitreport.xml -c tests/phpunit.xml tests'
             }
             
             post {
                 always {
-                    junit testResults: 'logs/unitreport.xml'
+                    junit testResults: '/var/lib/docker/volumes/jenkins-data/_data/logs/unitreport.xml'
                 }
             }
         }
